@@ -11,21 +11,33 @@
 
 use super::Controller;
 use crate::interfaces::http::response::{HtmlResponse, Response};
+use crate::interfaces::http::views::View;
 
-pub struct GuestBookController {}
+pub struct GuestBookController {
+    view: Box<dyn View>,
+}
 
 impl GuestBookController {
-    pub fn new() -> Self {
-        Self {}
+    pub fn new(view: Box<dyn View>) -> Self {
+        Self {
+            view
+        }
     }
 }
 
 impl Controller for GuestBookController {
     fn run(&self) -> Box<dyn Response> {
-        Box::new(HtmlResponse::new(
-            200,
-            vec!["Content-Type: text/html".into()],
-            "<h1>GuestBookController::run() v3</h1><br><a href=\"/\">home</> | <a href=\"/about.fcgi\">about</>".into(),
-        ))
+        match self.view.render(&"guest-book.html".to_string(), None) {
+            Ok(content) => Box::new(HtmlResponse::new(
+                200,
+                vec!["Content-Type: text/html".into()],
+                content,
+            )),
+            Err(err) => Box::new(HtmlResponse::new(
+                404,
+                vec!["Content-Type: text/plain".into()],
+                err.to_string(),
+            ))
+        }
     }
 }

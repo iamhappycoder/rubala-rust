@@ -38,10 +38,11 @@ impl WebRoute {
 mod tests {
     use super::*;
     use crate::interfaces::http::controllers::HomeController;
+    use crate::interfaces::http::views::HtmlView;
 
     #[test]
     fn get_route_success() {
-        let route = WebRoute::new("home", "/", vec![Method::Get], Box::new(|| Box::new(HomeController::new()))).unwrap();
+        let route = WebRoute::new("home", "/", vec![Method::Get], Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {}))))).unwrap();
 
         assert_eq!(route.name, "home");
         assert_eq!(route.path, "/");
@@ -50,7 +51,7 @@ mod tests {
 
     #[test]
     fn post_route_success() {
-        let route = WebRoute::new("home", "/", vec![Method::Post], Box::new(|| Box::new(HomeController::new()))).unwrap();
+        let route = WebRoute::new("home", "/", vec![Method::Post], Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {}))))).unwrap();
 
         assert_eq!(route.name, "home");
         assert_eq!(route.path, "/");
@@ -59,7 +60,7 @@ mod tests {
 
     #[test]
     fn mixed_route_success() {
-        let route = WebRoute::new("home", "/", vec![Method::Get, Method::Post], Box::new(|| Box::new(HomeController::new()))).unwrap();
+        let route = WebRoute::new("home", "/", vec![Method::Get, Method::Post], Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {}))))).unwrap();
 
         assert_eq!(route.name, "home");
         assert_eq!(route.path, "/");

@@ -18,13 +18,14 @@ use String;
 
 use infrastructure::router::{Method, Router, WebRoute, WebRouter};
 use interfaces::http::controllers::{AboutController, HomeController, GuestBookController};
+use crate::interfaces::http::views::HtmlView;
 
 fn main() {
     fastcgi::run_once(|mut request| {
         let routes = vec![
-            WebRoute::new("home", "/", vec![Method::Get], Box::new(|| Box::new(HomeController::new()))),
-            WebRoute::new("about", "/about.fcgi", vec![Method::Get],Box::new(|| Box::new(AboutController::new()))),
-            WebRoute::new("guest_book", "/guest-book.fcgi", vec![Method::Get],Box::new(|| Box::new(GuestBookController::new()))),    
+            WebRoute::new("home", "/", vec![Method::Get], Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {}))))),
+            WebRoute::new("about", "/about.fcgi", vec![Method::Get],Box::new(|| Box::new(AboutController::new(Box::new(HtmlView {}))))),
+            WebRoute::new("guest_book", "/guest-book.fcgi", vec![Method::Get],Box::new(|| Box::new(GuestBookController::new(Box::new(HtmlView {}))))),    
         ];
 
         let mut web_router = WebRouter::new();

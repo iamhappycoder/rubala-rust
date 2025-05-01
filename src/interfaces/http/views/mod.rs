@@ -9,6 +9,12 @@
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
 
-pub mod views;
-pub mod controllers;
-pub mod response;
+use std::collections::HashMap;
+
+pub mod html_view;
+
+pub use html_view::HtmlView;
+
+pub trait View {
+    fn render(&self, template_name: &String, params: Option<HashMap<String, String>>) -> Result<String, std::io::Error>;
+}
