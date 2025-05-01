@@ -1,0 +1,57 @@
+use crate::interfaces::http::controllers::{ControllerConstructor, Controller};
+use super::Method;
+
+pub struct WebRoute {
+    pub name: String,
+    pub path: String,
+    pub methods: Vec<Method>,
+    pub controller: ControllerConstructor,
+}
+
+impl WebRoute {
+    pub fn new<T: Into<String>>(name: T, path: T, methods: Vec<Method>, controller: Box<dyn Fn() -> Box<dyn Controller>>) -> Result<Self, String> {
+        if methods.is_empty() {
+            Err("A route must have at least one method".to_string())
+        } else {
+            Ok(Self {
+                name: name.into(),
+                path: path.into(),
+                methods,
+                controller,
+            })
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::interfaces::http::controllers::HomeController;
+
+    #[test]
+    fn get_route_success() {
+        let route = WebRoute::new("home", "/", vec![Method::Get], Box::new(|| Box::new(HomeController::new()))).unwrap();
+
+        assert_eq!(route.name, "home");
+        assert_eq!(route.path, "/");
+        assert_eq!(route.methods, vec![Method::Get]);
+    }
+
+    #[test]
+    fn post_route_success() {
+        let route = WebRoute::new("home", "/", vec![Method::Post], Box::new(|| Box::new(HomeController::new()))).unwrap();
+
+        assert_eq!(route.name, "home");
+        assert_eq!(route.path, "/");
+        assert_eq!(route.methods, vec![Method::Post]);
+    }
+
+    #[test]
+    fn mixed_route_success() {
+        let route = WebRoute::new("home", "/", vec![Method::Get, Method::Post], Box::new(|| Box::new(HomeController::new()))).unwrap();
+
+        assert_eq!(route.name, "home");
+        assert_eq!(route.path, "/");
+        assert_eq!(route.methods, vec![Method::Get, Method::Post]);
+    }
+}
