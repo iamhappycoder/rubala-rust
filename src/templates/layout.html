@@ -13,12 +13,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About Rubala</title>
+    <title>{{ page_title }}</title>
 </head>
 <body>
-    <h1>Rubala Guestbook</h1>
+    <h1>{{ heading }}</h1>
 
-    <p>GuestBookController::run() v4</p>
-    <p><a href="/">home</a> | <a href="/about.fcgi">about</a></p>
+    <p>{{ controller_name }}::run() v{{ version }}</p>
+    <p><a href="/">home</a> | <a href="/about.fcgi">about</a> | <a href="/guest-book.fcgi">guest book</a></p>
 </body>
 </html>

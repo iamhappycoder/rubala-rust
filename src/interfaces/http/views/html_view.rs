@@ -22,6 +22,15 @@ impl View for HtmlView {
         let mut path = PathBuf::from("templates");
         path.push(template_name);
         
-        fs::read_to_string(path)
+        let mut content = fs::read_to_string(path)?;
+
+        if let Some(map) = params {
+            for (key, value) in map {
+                let placeholder = format!("{{{{ {} }}}}", key); // e.g., {{ title }}
+                content = content.replace(&placeholder, &value);
+            }
+        }
+
+        Ok(content)
     }
 }
