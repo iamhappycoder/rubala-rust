@@ -14,3 +14,20 @@ pub enum Method {
     Get,
     Post,
 }
+
+impl Method {
+    pub fn from_str(s: &str) -> Option<Self> {
+        match s.to_uppercase().as_str() {
+            "GET" => Some(Method::Get),
+            "POST" => Some(Method::Post),
+            _ => None,
+        }
+    }
+
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Method::Get => "GET",
+            Method::Post => "POST",
+        }
+    }
+}

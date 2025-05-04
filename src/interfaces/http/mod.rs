@@ -9,6 +9,7 @@
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
 
-pub mod views;
 pub mod controllers;
+pub mod request;
 pub mod response;
+pub mod views;

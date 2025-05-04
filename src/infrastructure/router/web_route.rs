@@ -9,8 +9,8 @@
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
 
-use crate::interfaces::http::controllers::{ControllerConstructor, Controller};
 use super::Method;
+use crate::interfaces::http::controllers::{Controller, ControllerConstructor};
 
 pub struct WebRoute {
     pub name: String,
@@ -20,7 +20,12 @@ pub struct WebRoute {
 }
 
 impl WebRoute {
-    pub fn new<T: Into<String>>(name: T, path: T, methods: Vec<Method>, controller: Box<dyn Fn() -> Box<dyn Controller>>) -> Result<Self, String> {
+    pub fn new<T: Into<String>>(
+        name: T,
+        path: T,
+        methods: Vec<Method>,
+        controller: Box<dyn Fn() -> Box<dyn Controller>>,
+    ) -> Result<Self, String> {
         if methods.is_empty() {
             Err("A route must have at least one method".to_string())
         } else {
@@ -42,7 +47,13 @@ mod tests {
 
     #[test]
     fn get_route_success() {
-        let route = WebRoute::new("home", "/", vec![Method::Get], Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {}))))).unwrap();
+        let route = WebRoute::new(
+            "home",
+            "/",
+            vec![Method::Get],
+            Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {})))),
+        )
+        .unwrap();
 
         assert_eq!(route.name, "home");
         assert_eq!(route.path, "/");
@@ -51,7 +62,13 @@ mod tests {
 
     #[test]
     fn post_route_success() {
-        let route = WebRoute::new("home", "/", vec![Method::Post], Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {}))))).unwrap();
+        let route = WebRoute::new(
+            "home",
+            "/",
+            vec![Method::Post],
+            Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {})))),
+        )
+        .unwrap();
 
         assert_eq!(route.name, "home");
         assert_eq!(route.path, "/");
@@ -60,7 +77,13 @@ mod tests {
 
     #[test]
     fn mixed_route_success() {
-        let route = WebRoute::new("home", "/", vec![Method::Get, Method::Post], Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {}))))).unwrap();
+        let route = WebRoute::new(
+            "home",
+            "/",
+            vec![Method::Get, Method::Post],
+            Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {})))),
+        )
+        .unwrap();
 
         assert_eq!(route.name, "home");
         assert_eq!(route.path, "/");
