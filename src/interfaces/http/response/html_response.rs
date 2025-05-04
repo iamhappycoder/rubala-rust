@@ -8,7 +8,7 @@
  * For licensing information, please see the LICENSE file distributed with this code.
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
-
+use std::fmt::Display;
 use super::Response;
 
 pub struct HtmlResponse {
@@ -18,11 +18,11 @@ pub struct HtmlResponse {
 }
 
 impl HtmlResponse {
-    pub fn new(status_code: u16, headers: Vec<String>, body: String) -> Self {
+    pub fn new<B: Display>(status_code: u16, headers: Vec<String>, body: B) -> Self {
         Self {
             status_code,
             headers,
-            body,
+            body: body.to_string(),
         }
     }
 }
@@ -48,7 +48,7 @@ mod tests {
     #[test]
     fn getters_success() {
         let html_response =
-            HtmlResponse::new(200, vec!["Content-Type: text/plain".into()], "Hello".into());
+            HtmlResponse::new(200, vec!["Content-Type: text/plain".into()], "Hello");
 
         assert_eq!(html_response.status_code(), 200);
         assert_eq!(html_response.headers(), &vec!["Content-Type: text/plain"]);

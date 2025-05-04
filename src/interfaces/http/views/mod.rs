@@ -16,5 +16,5 @@ pub mod html_view;
 pub use html_view::HtmlView;
 
 pub trait View {
-    fn render(&self, template_name: &String, params: Option<HashMap<String, String>>) -> Result<String, std::io::Error>;
+    fn render(&self, template_name: &str, params: Option<HashMap<&str, &str>>) -> Result<String, std::io::Error>;
 }

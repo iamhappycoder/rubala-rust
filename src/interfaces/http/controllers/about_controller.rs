@@ -27,22 +27,22 @@ impl AboutController {
 
 impl Controller for AboutController {
     fn run(&self) -> Box<dyn Response> {
-        let mut params = HashMap::new();
-        params.insert("page_title".into(), "Rubala - About".into());
-        params.insert("heading".into(), "About Rubala".into());
-        params.insert("controller_name".into(), "AboutController".into());
-        params.insert("version".into(), "5".into());
+        let mut params: HashMap<&str, &str> = HashMap::new();
+        params.insert("page_title", "Rubala - About");
+        params.insert("heading", "About Rubala");
+        params.insert("controller_name", "AboutController");
+        params.insert("version", "5");
 
-        match self.view.render(&"layout.html".to_string(), Some(params)) {
+        match self.view.render("layout.html", Some(params)) {
             Ok(content) => Box::new(HtmlResponse::new(
                 200,
                 vec!["Content-Type: text/html".into()],
-                content,
+                content.as_str(),
             )),
             Err(err) => Box::new(HtmlResponse::new(
                 500,
                 vec!["Content-Type: text/plain".into()],
-                err.to_string(),
+                err,
             ))
         }
     }

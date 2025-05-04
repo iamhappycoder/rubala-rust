@@ -28,21 +28,21 @@ impl GuestBookController {
 impl Controller for GuestBookController {
     fn run(&self) -> Box<dyn Response> {
         let mut params = HashMap::new();
-        params.insert("page_title".into(), "Rubala - Guest Book".into());
-        params.insert("heading".into(), "Sign the guest book".into());
-        params.insert("controller_name".into(), "GuestBookController".into());
-        params.insert("version".into(), "5".into());
+        params.insert("page_title", "Rubala - Guest Book");
+        params.insert("heading", "Sign the guest book");
+        params.insert("controller_name", "GuestBookController");
+        params.insert("version", "5");
 
-        match self.view.render(&"layout.html".to_string(), Some(params)) {
+        match self.view.render("layout.html", Some(params)) {
             Ok(content) => Box::new(HtmlResponse::new(
                 200,
-                vec!["Content-Type: text/html".into()],
+                vec!["Content-Type: text/html".to_string()],
                 content,
             )),
             Err(err) => Box::new(HtmlResponse::new(
                 404,
                 vec!["Content-Type: text/plain".into()],
-                err.to_string(),
+                err,
             ))
         }
     }

@@ -28,12 +28,12 @@ impl HomeController {
 impl Controller for HomeController {
     fn run(&self) -> Box<dyn Response> {
         let mut params = HashMap::new();
-        params.insert("page_title".into(), "Rubala - home".into());
-        params.insert("heading".into(), "Welcome!".into());
-        params.insert("controller_name".into(), "HomeController".into());
-        params.insert("version".into(), "5".into());
+        params.insert("page_title", "Rubala - home");
+        params.insert("heading", "Welcome!");
+        params.insert("controller_name", "HomeController");
+        params.insert("version", "5");
 
-        match self.view.render(&"layout.html".to_string(), Some(params)) {
+        match self.view.render("layout.html", Some(params)) {
             Ok(content) => Box::new(HtmlResponse::new(
                 200,
                 vec!["Content-Type: text/html".into()],
@@ -42,7 +42,7 @@ impl Controller for HomeController {
             Err(err) => Box::new(HtmlResponse::new(
                 500,
                 vec!["Content-Type: text/plain".into()],
-                err.to_string(),
+                err,
             ))
         }
     }

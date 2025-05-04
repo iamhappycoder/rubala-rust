@@ -18,7 +18,7 @@ pub struct HtmlView {
 }
 
 impl View for HtmlView {
-    fn render(&self, template_name: &String, params: Option<HashMap<String, String>>) -> Result<String, std::io::Error> {
+    fn render(&self, template_name: &str, params: Option<HashMap<&str, &str>>) -> Result<String, std::io::Error> {
         let mut path = PathBuf::from("templates");
         path.push(template_name);
         

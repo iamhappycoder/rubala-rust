@@ -20,18 +20,18 @@ pub struct WebRoute {
 }
 
 impl WebRoute {
-    pub fn new<T: Into<String>>(
-        name: T,
-        path: T,
+    pub fn new(
+        name: &str,
+        path: &str,
         methods: Vec<Method>,
         controller: Box<dyn Fn() -> Box<dyn Controller>>,
-    ) -> Result<Self, String> {
+    ) -> Result<Self, &'static str> {
         if methods.is_empty() {
-            Err("A route must have at least one method".to_string())
+            Err("A route must have at least one method")
         } else {
             Ok(Self {
-                name: name.into(),
-                path: path.into(),
+                name: name.to_string(),
+                path: path.to_string(),
                 methods,
                 controller,
             })
