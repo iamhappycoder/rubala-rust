@@ -37,13 +37,17 @@ impl Controller for GuestBookController {
             Ok(content) => Box::new(HtmlResponse::new(
                 200,
                 vec!["Content-Type: text/html".to_string()],
-                content,
+                content.as_str(),
             )),
-            Err(err) => Box::new(HtmlResponse::new(
-                404,
-                vec!["Content-Type: text/plain".into()],
-                err,
-            ))
+            Err(err) => {
+                let error_message = err.to_string();
+
+                Box::new(HtmlResponse::new(
+                    404,
+                    vec!["Content-Type: text/plain".into()],
+                    error_message.as_str(),
+                ))
+            }
         }
     }
 }

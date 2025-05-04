@@ -18,7 +18,7 @@ pub struct HtmlResponse {
 }
 
 impl HtmlResponse {
-    pub fn new<B: Display>(status_code: u16, headers: Vec<String>, body: B) -> Self {
+    pub fn new(status_code: u16, headers: Vec<String>, body: &str) -> Self {
         Self {
             status_code,
             headers,

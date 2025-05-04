@@ -39,11 +39,15 @@ impl Controller for AboutController {
                 vec!["Content-Type: text/html".into()],
                 content.as_str(),
             )),
-            Err(err) => Box::new(HtmlResponse::new(
-                500,
-                vec!["Content-Type: text/plain".into()],
-                err,
-            ))
+            Err(err) => {
+                let error_message = err.to_string();
+
+                Box::new(HtmlResponse::new(
+                    500,
+                    vec!["Content-Type: text/plain".into()],
+                    error_message.as_str(),
+                ))
+            }
         }
     }
 }
