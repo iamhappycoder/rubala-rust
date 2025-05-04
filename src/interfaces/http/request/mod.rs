@@ -14,8 +14,25 @@ use fastcgi::Request as FCGI_Request;
 use std::collections::HashMap;
 
 pub struct Request {
-    pub method: Method,
-    pub uri: String,
+    method: Method,
+    uri: String,
+}
+
+impl Request {
+    pub fn new(method: Method, uri: &str) -> Self {
+        Self {
+            method,
+            uri: uri.to_string()
+        }
+    }
+
+    pub fn method(&self) -> &Method {
+        &self.method
+    }
+
+    pub fn uri(&self) -> &String {
+        &self.uri
+    }
 }
 
 impl Request {
@@ -23,9 +40,9 @@ impl Request {
         let param_map: HashMap<_, _> = request.params().collect();
         let method_str = param_map.get("REQUEST_METHOD");
 
-        Self {
-            method: Method::from_str(method_str.unwrap().as_str()).unwrap_or(Method::Get),
-            uri: param_map.get("REQUEST_URI").unwrap().to_string(),
-        }
+        Self::new(
+            Method::from_str(method_str.unwrap().as_str()).unwrap_or(Method::Get),
+            param_map.get("REQUEST_URI").unwrap()
+        )
     }
 }

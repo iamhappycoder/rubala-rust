@@ -34,8 +34,8 @@ impl Router for WebRouter {
 
     fn match_route(&self, request: &Request) -> Option<&WebRoute> {
         self.routes
-            .get(&request.uri)
-            .filter(|route| route.methods.contains(&request.method))
+            .get(request.uri())
+            .filter(|route| route.methods.contains(request.method()))
     }
 }
 
@@ -48,10 +48,10 @@ mod tests {
 
     #[test]
     fn match_route_failure() {
-        let request = &Request {
-            method: Method::Get,
-            uri: "/x".to_string(),
-        };
+        let request = &Request::new(
+            Method::Get,
+            "/x",
+        );
         let mut router = WebRouter::new();
 
         router.add_route(
@@ -71,10 +71,7 @@ mod tests {
 
     #[test]
     fn match_route_success() {
-        let request = &Request {
-            method: Method::Get,
-            uri: "/".to_string(),
-        };
+        let request = &Request::new(Method::Get, "/");
         let mut router = WebRouter::new();
 
         router.add_route(
