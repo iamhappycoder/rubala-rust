@@ -8,10 +8,10 @@
  * For licensing information, please see the LICENSE file distributed with this code.
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
-use std::collections::HashMap;
 use super::Controller;
 use crate::interfaces::http::response::{HtmlResponse, Response};
 use crate::interfaces::http::views::View;
+use std::collections::HashMap;
 
 pub struct AboutController {
     view: Box<dyn View>,
@@ -19,9 +19,7 @@ pub struct AboutController {
 
 impl AboutController {
     pub fn new(view: Box<dyn View>) -> Self {
-        Self {
-            view,
-        }
+        Self { view }
     }
 }
 

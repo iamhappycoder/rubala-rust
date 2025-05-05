@@ -8,8 +8,8 @@
  * For licensing information, please see the LICENSE file distributed with this code.
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
-use std::fmt::Display;
 use super::Response;
+use std::fmt::Display;
 
 pub struct HtmlResponse {
     status_code: u16,

@@ -48,10 +48,7 @@ mod tests {
 
     #[test]
     fn match_route_failure() {
-        let request = &Request::new(
-            Method::Get,
-            "/x",
-        );
+        let request = &Request::new(Method::Get, "/x");
         let mut router = WebRouter::new();
 
         router.add_route(

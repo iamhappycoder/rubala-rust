@@ -22,7 +22,7 @@ impl Request {
     pub fn new(method: Method, uri: &str) -> Self {
         Self {
             method,
-            uri: uri.to_string()
+            uri: uri.to_string(),
         }
     }
 
@@ -42,7 +42,7 @@ impl Request {
 
         Self::new(
             Method::from_str(method_str.unwrap().as_str()).unwrap_or(Method::Get),
-            param_map.get("REQUEST_URI").unwrap()
+            param_map.get("REQUEST_URI").unwrap(),
         )
     }
 }
