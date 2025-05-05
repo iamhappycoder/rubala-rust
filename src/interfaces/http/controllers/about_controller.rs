@@ -8,9 +8,13 @@
  * For licensing information, please see the LICENSE file distributed with this code.
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
-use super::Controller;
-use crate::interfaces::http::response::{HtmlResponse, Response};
-use crate::interfaces::http::views::View;
+
+use crate::framework::{
+    controller::Controller,
+    response::{ Response, HtmlResponse},
+    views::View
+};
+
 use std::collections::HashMap;
 
 pub struct AboutController {

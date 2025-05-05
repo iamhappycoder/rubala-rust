@@ -13,10 +13,11 @@ pub mod method;
 pub mod web_route;
 pub mod web_router;
 
-pub use crate::interfaces::http::request::Request;
 pub use method::Method;
 pub use web_route::WebRoute;
 pub use web_router::WebRouter;
+
+use crate::framework::request::Request;
 
 pub trait Router {
     fn add_route(&mut self, route: WebRoute);

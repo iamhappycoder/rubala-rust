@@ -11,16 +11,20 @@
 
 mod infrastructure;
 mod interfaces;
+mod framework;
 
 use String;
 use fastcgi;
 use std::collections::HashMap;
 use std::io::Write;
 
-use infrastructure::router::{Method, Router, WebRoute, WebRouter};
+use crate::framework::{
+    request::Request,
+    views::HtmlView,
+    router::{Method, Router, WebRoute, WebRouter},
+};
+
 use interfaces::http::controllers::{AboutController, GuestBookController, HomeController};
-use interfaces::http::request::Request;
-use interfaces::http::views::HtmlView;
 
 fn main() {
     fastcgi::run_once(|mut fcgi_request| {

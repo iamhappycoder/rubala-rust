@@ -9,4 +9,3 @@
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
 
-pub mod router;

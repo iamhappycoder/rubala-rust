@@ -10,6 +10,3 @@
  */
 
 pub mod controllers;
-pub mod request;
-pub mod response;
-pub mod views;

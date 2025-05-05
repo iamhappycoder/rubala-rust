@@ -9,7 +9,7 @@
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
 
-use crate::infrastructure::router::Method;
+use crate::framework::router::Method;
 use fastcgi::Request as FCGI_Request;
 use std::collections::HashMap;
 
