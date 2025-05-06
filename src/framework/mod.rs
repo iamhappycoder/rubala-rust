@@ -14,3 +14,4 @@ pub mod request;
 pub mod response;
 pub mod router;
 pub mod views;
+pub mod kernel;
