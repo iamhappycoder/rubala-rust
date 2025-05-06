@@ -11,9 +11,10 @@
 
 use std::collections::HashMap;
 
-use super::Router;
-use super::WebRoute;
-use crate::framework::request::Request;
+use crate::framework::{
+    request::Request,
+    router::{Router, WebRoute},
+};
 
 pub struct WebRouter {
     routes: HashMap<String, WebRoute>,

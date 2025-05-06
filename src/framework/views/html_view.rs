@@ -9,7 +9,7 @@
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
 
-use super::View;
+use crate::framework::views::View;
 use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;

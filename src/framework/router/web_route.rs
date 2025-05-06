@@ -9,8 +9,10 @@
  * For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
  */
 
-use super::Method;
-use crate::framework::controller::{Controller, ControllerConstructor};
+use crate::framework::{
+    controller::{Controller, ControllerConstructor},
+    router::Method,
+};
 
 pub struct WebRoute {
     pub name: String,

@@ -42,7 +42,7 @@ impl Response for HtmlResponse {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::framework::response::*;
 
     #[test]
     fn getters_success() {
