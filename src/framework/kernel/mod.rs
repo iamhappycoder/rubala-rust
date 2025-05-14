@@ -19,42 +19,13 @@ use crate::framework::{
 use crate::framework::request::Request;
 use crate::framework::response::Response;
 use crate::framework::router::Method;
-use crate::framework::views::HtmlView;
-use crate::interfaces::http::controllers::{AboutController, GuestBookController, HomeController};
 
 pub struct Kernel {
     router: WebRouter,
 }
 
 impl Kernel {
-    pub fn boot(mut fcgi_request: FcgiRequest) {
-        let routes = vec![
-            WebRoute::new(
-                "home",
-                "/",
-                vec![Method::Get],
-                Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {})))),
-            ),
-            WebRoute::new(
-                "home",
-                "/users/1",
-                vec![Method::Post],
-                Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {})))),
-            ),
-            WebRoute::new(
-                "about",
-                "/about",
-                vec![Method::Get],
-                Box::new(|| Box::new(AboutController::new(Box::new(HtmlView {})))),
-            ),
-            WebRoute::new(
-                "guest_book",
-                "/guest-book",
-                vec![Method::Get],
-                Box::new(|| Box::new(GuestBookController::new(Box::new(HtmlView {})))),
-            ),
-        ];
-
+    pub fn boot(routes: Vec<Result<WebRoute, &str>>, mut fcgi_request: FcgiRequest) {
         let mut web_router = WebRouter::new();
         for route in routes.into_iter() {
             web_router.add_route(route.unwrap());

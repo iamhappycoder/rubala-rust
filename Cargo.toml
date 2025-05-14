@@ -8,10 +8,11 @@
 # For inquiries or support, please visit the project's repository at https://github.com/iamhappycoder/rubala.
 
 [package]
-name = "rubala-rust"
+name = "rubala"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 fastcgi = { git = "https://github.com/iamhappycoder/rust-fastcgi.git" }
-
+regex = "1.11.1"
+once_cell = "1.21.3"

@@ -16,9 +16,39 @@ mod framework;
 use fastcgi;
 
 use crate::framework::kernel::Kernel;
+use crate::framework::router::{Method, WebRoute};
+use crate::framework::views::HtmlView;
+use crate::interfaces::http::controllers::{AboutController, GuestBookController, HomeController};
 
 fn main() {
     fastcgi::run_once(|fcgi_request| {
-        Kernel::boot(fcgi_request);
+        let routes= vec![
+            WebRoute::new(
+                "home",
+                "/",
+                vec![Method::Get],
+                Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {})))),
+            ),
+            WebRoute::new(
+                "home",
+                "/users/{id}",
+                vec![Method::Post],
+                Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {})))),
+            ),
+            WebRoute::new(
+                "about",
+                "/about",
+                vec![Method::Get],
+                Box::new(|| Box::new(AboutController::new(Box::new(HtmlView {})))),
+            ),
+            WebRoute::new(
+                "guest_book",
+                "/guest-book",
+                vec![Method::Get],
+                Box::new(|| Box::new(GuestBookController::new(Box::new(HtmlView {})))),
+            ),
+        ];
+
+        Kernel::boot(routes, fcgi_request);
     });
 }

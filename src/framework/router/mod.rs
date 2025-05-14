@@ -13,6 +13,7 @@ pub mod method;
 pub mod web_route;
 pub mod web_router;
 
+use std::collections::HashMap;
 pub use method::Method;
 pub use web_route::WebRoute;
 pub use web_router::WebRouter;
@@ -22,4 +23,5 @@ use crate::framework::request::Request;
 pub trait Router {
     fn add_route(&mut self, route: WebRoute);
     fn match_route(&self, request: &Request) -> Option<&WebRoute>;
+    fn match_path_segments(pattern: &str, uri: &str) -> Option<HashMap<String, String>>;
 }

@@ -16,7 +16,7 @@ use crate::framework::{
 
 pub struct WebRoute {
     pub name: String,
-    pub path: String,
+    pub pattern: String,
     pub methods: Vec<Method>,
     pub controller: ControllerConstructor,
 }
@@ -24,7 +24,7 @@ pub struct WebRoute {
 impl WebRoute {
     pub fn new(
         name: &str,
-        path: &str,
+        pattern: &str,
         methods: Vec<Method>,
         controller: Box<dyn Fn() -> Box<dyn Controller>>,
     ) -> Result<Self, &'static str> {
@@ -33,7 +33,7 @@ impl WebRoute {
         } else {
             Ok(Self {
                 name: name.to_string(),
-                path: path.to_string(),
+                pattern: pattern.to_string(),
                 methods,
                 controller,
             })
@@ -46,7 +46,7 @@ impl WebRoute {
 //     use super::*;
 //     use crate::framework::controller::HomeController;
 //     use crate::framework::views::HtmlView;
-// 
+//
 //     #[test]
 //     fn get_route_success() {
 //         let route = WebRoute::new(
@@ -56,12 +56,12 @@ impl WebRoute {
 //             Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {})))),
 //         )
 //         .unwrap();
-// 
+//
 //         assert_eq!(route.name, "home");
 //         assert_eq!(route.path, "/");
 //         assert_eq!(route.methods, vec![Method::Get]);
 //     }
-// 
+//
 //     #[test]
 //     fn post_route_success() {
 //         let route = WebRoute::new(
@@ -71,12 +71,12 @@ impl WebRoute {
 //             Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {})))),
 //         )
 //         .unwrap();
-// 
+//
 //         assert_eq!(route.name, "home");
 //         assert_eq!(route.path, "/");
 //         assert_eq!(route.methods, vec![Method::Post]);
 //     }
-// 
+//
 //     #[test]
 //     fn mixed_route_success() {
 //         let route = WebRoute::new(
@@ -86,7 +86,7 @@ impl WebRoute {
 //             Box::new(|| Box::new(HomeController::new(Box::new(HtmlView {})))),
 //         )
 //         .unwrap();
-// 
+//
 //         assert_eq!(route.name, "home");
 //         assert_eq!(route.path, "/");
 //         assert_eq!(route.methods, vec![Method::Get, Method::Post]);
